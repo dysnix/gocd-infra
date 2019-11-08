@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gocd-agent-{{ POD_POSTFIX }}
+  namespace: gocd
+  labels:
+    app: gocd-agent
+spec:
+  serviceAccountName: default
+  containers:
+    - name: gocd-agent-container-{{ CONTAINER_POSTFIX }}
+      image: gocd/gocd-agent-docker-dind:v19.10.0
+      env:
+        - name: KUBE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: gocd-deployer
+              key: KUBE_TOKEN
+      securityContext:
+        privileged: true
