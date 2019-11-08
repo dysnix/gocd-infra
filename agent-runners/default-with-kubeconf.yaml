@@ -11,11 +11,13 @@ spec:
   containers:
     - name: gocd-agent-container-{{ CONTAINER_POSTFIX }}
       image: gocd/gocd-agent-docker-dind:v19.10.0
-      env:
-        - name: KUBE_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: gocd-deployer
-              key: KUBE_TOKEN
+      volumeMounts:
+      - name: kubeconf
+        mountPath: /root/.kube
+        readOnly: true
+      volumes:
+      - name: kubeconf
+        secret:
+          secretName: gocd-deployer-kubeconf
       securityContext:
-        privileged: true
+        privileged: false
