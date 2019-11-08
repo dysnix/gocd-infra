@@ -63,8 +63,8 @@ kubectl get secret -n \$NS \${_sa_token_secret} -o jsonpath='{.data.ca\.crt}' | 
 
 export KUBECONFIG=/tmp/\$$.gen.kube.conf
 kubectl config set-cluster \${_kube_cluster} --server=\${_kube_server} --certificate-authority=\${_tmpcrt} --embed-certs=true >& /dev/null
-kubectl config set-credentials \${_sa_token_secret} --token=\${_sa_token} >& /dev/null
-kubectl config set-context \${_kube_cluster} --cluster \${_kube_cluster} --user \${_sa_token_secret}
+kubectl config set-credentials \$SA --token=\${_sa_token} >& /dev/null
+kubectl config set-context \${_kube_cluster} --cluster \${_kube_cluster} --user \$SA
 kubectl config use-context \${_kube_cluster}
 
 echo -e "\n.kube/conf:\n\n---"
