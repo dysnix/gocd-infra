@@ -62,10 +62,12 @@ _tmpcrt=/tmp/\$$.gen.kube.ca.crt
 kubectl get secret -n \$NS \${_sa_token_secret} -o jsonpath='{.data.ca\.crt}' | base64 --decode > \${_tmpcrt}
 
 export KUBECONFIG=/tmp/\$$.gen.kube.conf
-kubectl config set-cluster \${_kube_cluster} --server=https://\${_kube_server} --certificate-authority=\${_tmpcrt} --embed-certs=true >& /dev/null
+kubectl config set-cluster \${_kube_cluster} --server=\${_kube_server} --certificate-authority=\${_tmpcrt} --embed-certs=true >& /dev/null
 kubectl config set-credentials \${_sa_token_secret} --token=\${_sa_token} >& /dev/null
+kubectl config set-context \${_kube_cluster} --cluster \${_kube_cluster} --user \${_sa_token_secret}
+kubectl config use-context \${_kube_cluster}
 
-echo -e "\n.kube/conf\n\n---"
+echo -e "\n.kube/conf:\n\n---"
 cat \${KUBECONFIG}
 rm -f \${_tmpcrt} \${KUBECONFIG}
 EHD
