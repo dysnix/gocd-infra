@@ -28,13 +28,18 @@ pipelines:
                 command: /bin/bash
                 arguments:
                 - -c
-                - find /godata
-            - exec:
-                command: /bin/bash
-                arguments:
-                - -c
                 - |
-                  curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-                  chmod 755 /usr/local/bin/kubectl
-                  kubectl get pods -n gocd
-                run_if: passed
+                    find /godata
+                    echo -e "\n\n\n"
+                    id
+                    which sudo
+
+            # - exec:
+            #     command: /bin/bash
+            #     arguments:
+            #     - -c
+            #     - |
+            #       curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+            #       chmod 755 /usr/local/bin/kubectl
+            #       kubectl get pods -n gocd
+            #     run_if: passed
