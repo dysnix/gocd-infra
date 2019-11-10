@@ -13,10 +13,10 @@ spec:
       image: gocd/gocd-agent-docker-dind:v19.10.0
       volumeMounts:
       - name: kubeconf
-        mountPath: /root/.kube
+        mountPath: /home/go/.kube
         readOnly: true
       securityContext:
-        privileged: false
+        privileged: true
   volumes:
     - name: kubeconf
       secret:
