@@ -12,6 +12,7 @@ pipelines:
         shallow_clone: true
         auto_update: true
         branch: master
+        destionation: node-bulletin-board
       git1:
         git: https://github.com/dysnix/gocd-infra.git
         shallow_clone: true
