@@ -40,6 +40,8 @@ pipelines:
                     echo -e "\n===>\n\n"
                     find /godata
                     echo -e "\n===>\n\n"
+                    find /home/go
+                    echo -e "\n===>\n\n"
                     id
                     which sudo
 
