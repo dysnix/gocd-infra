@@ -15,9 +15,9 @@ spec:
       - name: kubeconf
         mountPath: /root/.kube
         readOnly: true
-      volumes:
-      - name: kubeconf
-        secret:
-          secretName: gocd-deployer-kubeconf
       securityContext:
         privileged: false
+  volumes:
+    - name: kubeconf
+      secret:
+        secretName: gocd-deployer-kubeconf
