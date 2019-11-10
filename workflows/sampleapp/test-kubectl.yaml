@@ -1,6 +1,6 @@
 format_version: 3
 pipelines:
-  features.test:
+  Features.Test:
     group: sampleapp
     label_template: ${COUNT}
     lock_behavior: unlockWhenFinished
@@ -14,13 +14,13 @@ pipelines:
         branch: master
     stages:
     - id:
-        fetch_materials: true
+        fetch_materials: false
         keep_artifacts: false
         clean_workspace: false
         approval:
           type: success
         jobs:
-          build_image:
+          Download.kubectl:
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
@@ -28,7 +28,13 @@ pipelines:
                 command: /bin/bash
                 arguments:
                 - -c
+                - find /godata
+            - exec:
+                command: /bin/bash
+                arguments:
+                - -c
                 - |
-                  pwd
-                  env
+                  curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+                  chmod 755 /usr/local/bin/kubectl
+                  kubectl get pods -n gocd
                 run_if: passed
