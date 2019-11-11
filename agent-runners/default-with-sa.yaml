@@ -7,15 +7,7 @@ metadata:
   labels:
     app: gocd-agent
 spec:
-  serviceAccountName: default
+  serviceAccountName: gocd-deployer
   containers:
     - name: gocd-agent-container-{{ CONTAINER_POSTFIX }}
       image: dysnix/gocd-agent-alpine:v19.10.0
-      volumeMounts:
-      - name: kubeconf
-        mountPath: /home/go/.kube
-        readOnly: true
-  volumes:
-    - name: kubeconf
-      secret:
-        secretName: gocd-deployer-kubeconf
