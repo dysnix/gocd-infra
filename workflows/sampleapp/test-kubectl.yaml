@@ -39,4 +39,5 @@ pipelines:
                     set -x
                     which kubectl
                     kubectl get pods -n gocd
+                    helm ls gocd
                 run_if: passed
