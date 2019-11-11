@@ -27,7 +27,7 @@ pipelines:
         approval:
           type: success
         jobs:
-          Download.kubectl:
+          Test.kubectl:
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
@@ -36,19 +36,7 @@ pipelines:
                 arguments:
                 - -c
                 - |
-                    pwd
-                    echo -e "\n===>\n\n"
-                    find /godata
-                    echo -e "\n===>\n\n"
-                    find /home/go
-                    echo -e "\n===>\n\n"
-                    id
-                    which sudo
-
-            - exec:
-                command: /bin/bash
-                arguments:
-                - -c
-                - |
+                    set -x
+                    which kubectl
                     kubectl get pods -n gocd
                 run_if: passed
